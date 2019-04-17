@@ -1,0 +1,88 @@
+﻿@model BookRead.Models.Book 
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<form method="post" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Id, new { @class = "form-control" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextAreaFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextAreaFor(m => m.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "7" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price)
+        @Html.TextAreaFor(m => m.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Price)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Page)
+        @Html.TextAreaFor(m => m.Page, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Page)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Authors)
+        <br />
+        @foreach (var item in ViewBag.Data)
+        {
+
+            <input id="@item.Id" type="checkbox" value="@item.Id" name="authors" />
+            <labek> @item.Name</labek>
+        }
+
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <br />
+        @foreach (var item in ViewBag.Category)
+        {
+
+            <input id="@item.Id" type="checkbox" value="@item.Id" name="category" />
+            <labek> @item.Name</labek>
+        }
+
+    </div>
+     
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PdfLink)
+        @Html.TextBoxFor(m => m.PdfLink, new { type = "file", @class = "form-control" })
+
+        @Html.ValidationMessageFor(m => m.PdfLink)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Photo)
+        @Html.TextBoxFor(m => m.Photo, new { type = "file", accept = "image/*", @class = "form-control" })
+
+        @Html.ValidationMessageFor(m => m.Photo)
+    </div>
+    <div class="form-group">
+        <label>Current Image:</label>
+        <img src="~/Uploads/@Model.Image" style="height: 100px; object-fit: contain;" />
+    </div>
+
+    <input type="submit" class="btn btn-outline-success" value="Update" />
+
+</form>
+ 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

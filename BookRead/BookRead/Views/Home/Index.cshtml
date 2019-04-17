@@ -1,0 +1,381 @@
+﻿@model BookRead.Models.ViewModels.HomeIndexVM
+@{
+    ViewBag.Title = "Home Page";
+}
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row bookSrearch">
+            <!-- post -->
+            @{
+                var book = Model.Book.OrderBy(p => p.Date).FirstOrDefault();
+                var book1 = Model.Book.OrderBy(p => p.Date).Skip(1).FirstOrDefault();
+            }
+            <div class="col-md-6">
+                <div class="post post-thumb"  >
+                    <a class="post-img" href="/Home/Details?Id=@book.Id"><img src="~/Uploads/@book.Image" style="height:333px" alt=""></a>
+                    <div class="post-body ">
+                        <div class="post-meta">
+                            @foreach (var item in @book.CategoryBooks)
+                            {
+                                <a class="post-category cat-2" href="#">@item.Category.Name</a>
+
+                            }
+
+                            <span class="post-date"> @book.Date.ToShortDateString()</span>
+                        </div>
+                        <h3 class="post-title"><a href="#">  @book.Name  </a></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /post -->
+            <!-- post -->
+            <div class="col-md-6">
+                <div class="post post-thumb" id="">
+                    <a class="post-img" href="/Home/Details?Id=@book1.Id"><img src="~/Uploads/@book1.Image" style="height:333px" alt=""></a>
+                    <div class="post-body">
+                        <div class="post-meta">
+                            @foreach (var item in @book1.CategoryBooks)
+                            {
+                                <a class="post-category cat-2" href="#">@item.Category.Name</a>
+
+                            }
+                            <span class="post-date">@book1.Date.ToShortDateString()</span>
+                        </div>
+                        <h3 class="post-title"><a href="blog-post.html">@book1.Name</a></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /post -->
+        </div>
+        <!-- /row -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2>Recent Posts</h2>
+                </div>
+            </div>
+
+            @foreach (var item in Model.Book.Take(3))
+            {
+                <div class="col-md-4">
+                    <div class="post" id="">
+                        <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style=" height:216px" alt=""></a>
+                        <div class="post-body">
+                            <div class="post-meta">
+                                @foreach (var category in item.CategoryBooks)
+                                {
+                                    <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                }
+                                <span class="post-date">@item.Date.ToShortDateString()</span>
+                            </div>
+                            <h3 class="post-title"><a href="blog-post.html">@item.Name</a></h3>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- post -->
+            <!-- /post -->
+
+
+            <div class="clearfix visible-md visible-lg"></div>
+
+            @foreach (var item in Model.Book.OrderByDescending(p => p.Id).Take(3))
+            {
+                <div class="col-md-4">
+                    <div class="post" id="">
+                        <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:216px" alt=""></a>
+                        <div class="post-body">
+                            <div class="post-meta">
+                                @foreach (var category in item.CategoryBooks)
+                                {
+                                    <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                }
+                                <span class="post-date"> @item.Date.ToShortDateString()</span>
+                            </div>
+                            <h3 class="post-title"><a href="blog-post.html">@item.Name</a></h3>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- post -->
+            <!-- /post -->
+
+        </div>
+        <!-- /row -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <!-- post -->
+                    @{
+                        var book_col_12 = Model.Book.OrderBy(p => p.Price).Take(1).First();
+                    }
+                    <div class="col-md-12">
+                        <div class="post post-thumb" id="@book_col_12.Id">
+                            <a class="post-img" href="/Home/Details?Id=@book_col_12.Id"><img src="~/Uploads/@book_col_12.Image" style="height:450px" alt=""></a>
+                            <div class="post-body">
+                                <div class="post-meta">
+                                    @foreach (var category in book_col_12.CategoryBooks)
+                                    {
+                                        <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                    }
+                                    <span class="post-date">@book_col_12.Date.ToShortDateString()</span>
+                                </div>
+                                <h3 class="post-title"><a href="blog-post.html">@book_col_12.Name</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post -->
+
+                    @foreach (var item in Model.Book.OrderBy(p => p.Page).Take(2))
+                    {
+                        <!-- post -->
+                        <div class="col-md-6">
+                            <div class="post" id="">
+                                <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:216px" alt=""></a>
+                                <div class="post-body">
+                                    <div class="post-meta">
+                                        @foreach (var category in item.CategoryBooks)
+                                        {
+                                            <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                        }
+                                        <span class="post-date">@item.Date</span>
+                                    </div>
+                                    <h3 class="post-title"><a href="blog-post.html">@item.Name</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+
+
+
+                    <div class="clearfix visible-md visible-lg"></div>
+                    @foreach (var item in Model.Book.OrderByDescending(p => p.Page).Take(2))
+                    {
+                        <!-- post -->
+                        <div class="col-md-6">
+                            <div class="post" id="">
+                                <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:216px" alt=""></a>
+                                <div class="post-body">
+                                    <div class="post-meta">
+                                        @foreach (var category in item.CategoryBooks)
+                                        {
+                                            <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                        }
+                                        <span class="post-date">@item.Date</span>
+                                    </div>
+                                    <h3 class="post-title"><a href="blog-post.html">@item.Name</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+
+
+
+                    <div class="clearfix visible-md visible-lg"></div>
+                    @foreach (var item in Model.Book.OrderByDescending(p => p.Price).Take(2))
+                    {
+                        <!-- post -->
+                        <div class="col-md-6">
+                            <div class="post" id="">
+                                <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:216px" alt=""></a>
+                                <div class="post-body">
+                                    <div class="post-meta">
+                                        @foreach (var category in item.CategoryBooks)
+                                        {
+                                            <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                        }
+                                        <span class="post-date">@item.Date</span>
+                                    </div>
+                                    <h3 class="post-title"><a href="blog-post.html">@item.Name</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- post widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2>Most Read</h2>
+                    </div>
+                    @foreach (var item in Model.Book.Take(3))
+                    {
+                        <div class="post post-widget " id="">
+                            <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:90px;width:90px" alt=""></a>
+                            <div class="post-body">
+                                <h3 class="post-title"><a href="blog-post.html">@item.Title.Substring(0, 30)</a></h3>
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+                <!-- /post widget -->
+                <!-- post widget -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2>Featured Posts</h2>
+                    </div>
+                    @foreach (var item in Model.Book.OrderByDescending(p => p.Date).Take(2))
+                    {
+                        <div class="post post-thumb" id="">
+                            <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:216px" alt=""></a>
+                            <div class="post-body">
+                                <div class="post-meta">
+                                    @foreach (var category in item.CategoryBooks)
+                                    {
+                                        <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                    }
+                                    <span class="post-date">@item.Date.ToShortDateString()</span>
+                                </div>
+                                <h3 class="post-title"><a href="blog-post.html">@item.Title.Substring(0, 30)</a></h3>
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+                <!-- /post widget -->
+                <!-- ad -->
+                <div class="aside-widget text-center">
+
+                </div>
+                <!-- /ad -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2>Most Read</h2>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.Book.Take(6))
+                    {
+                        <!-- post -->
+                        <div class="col-md-12">
+                            <div class="post post-row" id="">
+                                <a class="post-img" href="/Home/Details?Id=@item.Id"><img src="~/Uploads/@item.Image" style="height:180px;width:300px" alt=""></a>
+                                <div class="post-body">
+                                    <div class="post-meta">
+                                        @foreach (var category in item.CategoryBooks)
+                                        {
+                                            <a class="post-category cat-2" href="#">@category.Category.Name</a>
+
+                                        }
+                                        <span class="post-date"> @item.Date.ToShortDateString()</span>
+                                    </div>
+                                    <h3 class="post-title"><a href="blog-post.html">@item.Title</a></h3>
+                                    <p> @item.Description.Substring(0, 50) ...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /post -->
+                    }
+
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- ad -->
+                <div class="aside-widget text-center">
+
+                </div>
+                <!-- /ad -->
+                <!-- catagories -->
+                <div class="aside-widget">
+                    <div class="section-title">
+                        <h2>Catagories</h2>
+                    </div>
+                    <div class="category-widget">
+                        <ul>
+                            @foreach (var item in Model.Category)
+                            {
+
+                                <li><a href="#" class="cat-1">@item.Name<span>@(item.Id * 10)</span></a></li>
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /catagories -->
+                <!-- tags -->
+                <div class="aside-widget">
+                    <div class="tags-widget">
+                        <ul>
+                            @foreach (var item in Model.Author)
+                            {
+                                <li><a href="#">@item.Name</a></li>
+                            }
+
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /tags -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+@section scripts{
+
+    <script>
+        $(".search-input").keyup(function () {
+            var query =  $(".search-input").val()
+
+            $.ajax({
+                url: "/Home/AjaxSearch",
+                data: { query: query },
+                success: function (res) {
+                    $(".bookSrearch").html("");
+                     
+                         
+
+                        $(".bookSrearch").append(res)
+                        
+                    
+                    
+                }
+            })
+        }) 
+      
+    </script>
+}

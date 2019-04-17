@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BookRead.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a href="~/Admin/Author/Create" class="btn btn-info">Create</a>
+<table class="table table-striped ">
+    <thead>
+        <tr>
+
+            <th scope="col">Name</th>
+
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Name </td>
+                <td><a href="~/Admin/Category/Edit/?Id=@item.Id">Edit</a> </td>
+                <td><a href="~/Admin/Category/Index  " id="@item.Id" class="delete">Delete</a> </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+@section scripts{
+
+    <script>
+        $(document).on("click", ".delete", function () {
+
+            var id = $(this).attr("Id");
+            console.log(id);
+            $.ajax({
+                url: "Delete",
+                data: { Id: id },
+                type: "GET",
+                success: function (res) {
+                    console.log("test");
+                }
+            });
+
+        });
+
+    </script>
+}
+

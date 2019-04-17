@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BookRead.Models.Book>
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-9">
+
+    <section class="section about">
+        <h2><a href="Create">Create</a></h2>
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+
+                    <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">PDF</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.Name </td>
+                        <td>
+                            @foreach (var sair in item.Authors)
+
+                            {
+                                @sair.Name <br />
+                            }
+                        </td>
+
+
+
+                        <td>@item.Description.Substring(0, 40)</td>
+
+                        <td>
+                            @foreach (var category in item.CategoryBooks)
+
+                            {
+                                @category.Category.Name <br />
+                            }
+                        </td>
+                        <td>@item.Price</td>
+
+                        <td><img src="~/Uploads/@item.Image" alt="Alternate Text" /></td>
+                        <td>@item.Pdf</td>
+                        <td><a href="~/Admin/Admin/Edit/?Id=@item.Id">Edit</a> </td>
+                        <td><a href="~/Admin/Admin/About "   id="@item.Id" class="delete" >Delete</a> </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+
+    </section>
+</div>
+
+@section scripts{
+    
+    <script>
+        $(document).on("click", ".delete", function () {
+
+            var id = $(this).attr("Id");
+            console.log(id);
+            $.ajax({
+                url: "Delete",
+                data: { Id: id },
+                type: "GET",
+                success: function (res) {
+                    console.log("test");
+                }
+            });
+
+        });
+        
+    </script>
+}
+
+
+
